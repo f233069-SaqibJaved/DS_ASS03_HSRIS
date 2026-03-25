@@ -77,7 +77,7 @@ def load_data_and_models():
     embeddings = [np.zeros(300)]
     
     try:
-        with open('glove.840B.300d.pkl', 'rb') as f:
+        with open('glove.pkl', 'rb') as f:
             glove_dict = pickle.load(f)
             for word, vector in glove_dict.items():
                 vec = np.asarray(vector, dtype='float32')
@@ -85,7 +85,7 @@ def load_data_and_models():
                     word2idx[word] = len(embeddings)
                     embeddings.append(vec)
     except FileNotFoundError:
-        st.error("⚠️ 'glove.840B.300d.pkl' not found. Please ensure it is in the same folder as app.py.")
+        st.error("⚠️ 'glove.pkl' not found. Please ensure it is in the same folder as app.py.")
         st.stop()
                 
     embedding_layer = torch.nn.Embedding.from_pretrained(torch.FloatTensor(np.array(embeddings)))
